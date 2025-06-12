@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafael Bezerra | Academia de Jiu-Jitsu e Muay Thai</title>
+    <!-- Inclui o Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link para fontes do Google para a tipografia 'Inter' -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos base para o corpo, tipografia e cores principais */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8; /* Branco muito suave para o fundo */
+            color: #1a1a1a; /* Preto muito escuro para o texto principal */
+            line-height: 1.6;
+            overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+        }
+
+        /* Cores da paleta preto e branco */
+        .bg-primary-dark { background-color: #000; }
+        .text-primary-dark { color: #000; }
+        .bg-secondary-dark { background-color: #1a1a1a; } /* Quase preto */
+        .text-secondary-dark { color: #1a1a1a; }
+        .bg-light-gray { background-color: #f0f0f0; }
+        .text-light-gray { color: #f0f0f0; }
+        .border-dark-gray { border-color: #333; }
+        .border-light-gray { border-color: #e0e0e0; }
+
+        /* Estilos para o logo SVG (para o nome RAFAEL BEZERRA) */
+        .logo-svg {
+            width: 200px; /* Tamanho padrão do logo */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); /* Sombra suave para o logo */
+        }
+        .logo-text {
+            font-size: 2rem; /* Tamanho da fonte do texto do logo */
+            font-weight: 800; /* Extra bold */
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            fill: #000; /* Cor do texto no SVG */
+        }
+        .logo-subtext {
+            font-size: 0.5rem; /* Tamanho da fonte do subtexto do logo */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            fill: #000;
+        }
+
+        /* Efeito de background sutil (pontilhado) */
+        .pattern-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d0d0d0' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zm1 5v1H5zM0 0h1L6 6V5zm0 1V0h1z'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+
+        /* Estilos para seções com fundo preto */
+        .section-dark {
+            background-color: #000;
+            color: #fff;
+            padding: 80px 0;
+        }
+        .section-dark h2, .section-dark h3 {
+            color: #fff;
+        }
+
+        /* Estilos para botões */
+        .btn-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .btn-dark {
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #000;
+        }
+        .btn-dark:hover {
+            background-color: #fff;
+            color: #000;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+        }
+        .btn-light {
+            background-color: #fff;
+            color: #000;
+            border: 2px solid #000;
+        }
+        .btn-light:hover {
+            background-color: #000;
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Navegação responsiva (menu hambúrguer) */
+        #mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #000;
+            flex-direction: column;
+            padding: 20px 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            z-index: 50;
+        }
+        #mobile-menu a {
+            color: #fff;
+            padding: 12px 20px;
+            text-align: center;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        #mobile-menu a:hover {
+            background-color: #333;
+        }
+        .hamburger-button {
+            display: none; /* Escondido por padrão em desktop */
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* Pseudo-elementos para decoração de seção */
+        .section-divider {
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #000;
+            border-radius: 2px;
+        }
+        .section-dark .section-divider::after {
+            background-color: #fff; /* Linha branca em seções escuras */
+        }
+
+        /* Contêiner para os botões flutuantes */
+        .social-float-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column; /* Botões empilhados verticalmente */
+            gap: 10px; /* Espaçamento entre os botões */
+            z-index: 100;
+        }
+
+        /* Estilo base para os botões flutuantes de redes sociais */
+        .social-float-btn {
+            width: 50px; /* Tamanho padrão */
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 24px;
+            color: #FFF;
+            box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .social-float-btn:hover {
+            transform: scale(1.08); /* Leve zoom no hover */
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+        .social-float-btn svg {
+            width: 28px; /* Tamanho do ícone SVG */
+            height: 28px;
+            fill: currentColor;
+        }
+
+        /* Cores específicas para cada rede social */
+        .whatsapp-float { background-color: #25d366; } /* WhatsApp */
+        .whatsapp-float:hover { background-color: #128c7e; }
+
+        .instagram-float { 
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        } /* Instagram gradient */
+        .instagram-float:hover { 
+            transform: scale(1.08) rotate(5deg); /* Efeito adicional para Instagram */
+        }
+
+        .facebook-float { background-color: #3b5998; } /* Facebook */
+        .facebook-float:hover { background-color: #2d4373; }
+
+        .youtube-float { background-color: #ff0000; } /* YouTube */
+        .youtube-float:hover { background-color: #cc0000; }
+
+        .tiktok-float { background-color: #000000; } /* TikTok (preto com ícone branco) */
+        .tiktok-float:hover { background-color: #333333; }
+        
+        /* Media queries para responsividade */
+        @media (max-width: 768px) {
+            .logo-svg {
+                width: 160px; /* Logo menor em mobile */
+            }
+            .nav-links {
+                display: none; /* Oculta links de navegação em mobile */
+            }
+            .hamburger-button {
+                display: block; /* Mostra botão hambúrguer */
+            }
+            #mobile-menu.open {
+                display: flex; /* Mostra menu mobile quando aberto */
+            }
+            .section-dark, section {
+                padding: 40px 0; /* Menos padding em mobile */
+            }
+            .main-heading {
+                font-size: 2.5rem; /* Título principal menor */
+            }
+            .section-divider {
+                margin-bottom: 30px;
+            }
+            .section-divider::after {
+                width: 60px;
+                height: 3px;
+            }
+            .social-float-container {
+                bottom: 20px;
+                right: 20px;
+                gap: 8px; /* Menor espaçamento */
+            }
+            .social-float-btn {
+                width: 45px; /* Menor em mobile */
+                height: 45px;
+                font-size: 22px;
+            }
+            .social-float-btn svg {
+                width: 24px; /* Ícone menor */
+                height: 24px;
+            }
+            /* Em mobile, o formulário e o mapa se empilham */
+            .contact-content {
+                flex-direction: column;
+                gap: 2rem; /* Espaçamento entre eles */
+            }
+            .contact-form-wrapper, .map-embed-wrapper {
+                width: 100%; /* Ocupam largura total */
+                max-width: none; /* Remove limite de largura */
+            }
+        }
+        /* Esconde os botões flutuantes na impressão */
+        @media print {
+            .social-float-container {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="pattern-bg">
+
+    <!-- Header / Navegação -->
+    <header class="bg-primary-dark text-white p-4 shadow-md w-full fixed top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <!-- Logo SVG (Preto e Branco) -->
+            <a href="#home" class="flex-shrink-0">
+                <svg class="logo-svg" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="200" height="60" fill="white"/> <!-- Fundo branco para o logo -->
+                    <text x="100" y="30" class="logo-text" text-anchor="middle" dominant-baseline="central">RAFAEL</text>
+                    <text x="100" y="45" class="logo-subtext" text-anchor="middle" dominant-baseline="central">BEZERRA</text>
+                </svg>
+            </a>
+            
+            <!-- Botão Hambúrguer para Mobile -->
+            <button class="hamburger-button focus:outline-none" aria-label="Toggle navigation" id="hamburger-btn">
+                &#9776; <!-- Ícone de hambúrguer -->
+            </button>
+
+            <!-- Links de Navegação (Desktop) -->
+            <nav class="nav-links hidden md:flex space-x-6 text-sm font-semibold items-center" aria-hidden="true">
+                <a href="#home" class="hover:text-gray-400 transition-colors flex items-center h-10">INÍCIO</a>
+                <a href="#sobre" class="hover:text-gray-400 transition-colors flex items-center h-10">SOBRE</a>
+                <a href="#modalidades" class="hover:text-gray-400 transition-colors flex items-center h-10">MODALIDADES</a>
+                <a href="#horarios" class="hover:text-gray-400 transition-colors flex items-center h-10">HORÁRIOS</a>
+                <a href="#professores" class="hover:text-gray-400 transition-colors flex items-center h-10">PROFESSORES</a>
+                <a href="#galeria" class="hover:text-gray-400 transition-colors flex items-center h-10">GALERIA</a>
+                <a href="#contato" class="hover:text-gray-400 transition-colors flex items-center h-10">CONTATO</a>
+                <a href="#aluno" class="bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition-colors flex items-center h-10">ÁREA DO ALUNO</a>
+            </nav>
+        </div>
+
+        <!-- Menu Mobile (oculto por padrão) -->
+        <nav id="mobile-menu" class="md:hidden">
+            <a href="#home" class="hover:bg-gray-700">INÍCIO</a>
+            <a href="#sobre" class="hover:bg-gray-700">SOBRE</a>
+            <a href="#modalidades" class="hover:bg-gray-700">MODALIDADES</a>
+            <a href="#horarios" class="hover:bg-gray-700">HORÁRIOS</a>
+            <a href="#professores" class="hover:bg-gray-700">PROFESSORES</a>
+            <a href="#galeria" class="hover:bg-gray-700">GALERIA</a>
+            <a href="#contato" class="hover:bg-gray-700">CONTATO</a>
+            <a href="#aluno" class="bg-white text-black mt-2 mx-4 py-2 rounded-md hover:bg-gray-200">ÁREA DO ALUNO</a>
+        </nav>
+    </header>
+
+    <!-- Espaço para o cabeçalho fixo -->
+    <div class="pt-20"></div> 
+
+    <!-- Seção de Início (Hero) -->
+    <section id="home" class="min-h-[calc(100vh-80px)] flex items-center justify-center bg-fixed bg-cover bg-center text-center relative" style="background-image: url('https://placehold.co/1920x1080/202020/FFFFFF?text=FOTO+DE+JIU-JITSU+OU+MUAY+THAI');">
+        <div class="absolute inset-0 bg-black opacity-70"></div> <!-- Overlay escuro -->
+        <div class="relative z-10 text-white p-6 md:p-12 max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in">
+                Domine a Arte, Transforme seu Corpo.
+            </h1>
+            <p class="text-lg md:text-xl mb-10 opacity-0 animate-slide-up animation-delay-500">
+                Treine Jiu-Jitsu e Muay Thai com a excelência do professor Rafael Bezerra.
+            </p>
+            <a href="#modalidades" class="btn-main btn-light opacity-0 animate-slide-up animation-delay-1000 mx-auto">
+                Explore as Modalidades
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="sobre" class="py-16 md:py-24 bg-white pattern-bg">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-divider">Sobre a Academia</h2>
+            <p class="max-w-3xl mx-auto text-lg md:text-xl mb-8">
+                A Academia Rafael Bezerra é mais do que um local de treino; é um centro de transformação. Com uma história enraizada na tradição e excelência das artes marciais, nosso objetivo é capacitar indivíduos de todas as idades e níveis de habilidade através do Jiu-Jitsu e do Muay Thai.
+            </p>
+            <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-700">
+                Nossa filosofia é baseada na disciplina, respeito, superação e no desenvolvimento integral do aluno, tanto físico quanto mental. Venha fazer parte da nossa família e descubra o poder de uma vida mais forte e confiante.
+            </p>
+        </div>
+    </section>
+
+    <!-- Seção Modalidades -->
+    <section id="modalidades" class="section-dark">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-divider text-white">Nossas Modalidades</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                <!-- Card Jiu-Jitsu -->
+                <div class="bg-gray-900 p-8 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
+                    <img src="https://placehold.co/300x200/555555/FFFFFF?text=JIU-JITSU" alt="Jiu-Jitsu" class="w-full h-48 object-cover rounded-md mb-6 grayscale hover:grayscale-0 transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Jiu-Jitsu Brasileiro</h3>
+                    <p class="text-gray-300 mb-6">
+                        Conheça a arte suave que desenvolve disciplina, controle, estratégia e condicionamento físico. Ideal para defesa pessoal e competições. Nossas aulas abrangem todos os níveis, do iniciante ao avançado.
+                    </p>
+                    <a href="#contato" class="btn-main btn-light">Saiba Mais</a>
+                </div>
+                <!-- Card Muay Thai -->
+                <div class="bg-gray-900 p-8 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
+                    <img src="https://placehold.co/300x200/555555/FFFFFF?text=MUAY+THAI" alt="Muay Thai" class="w-full h-48 object-cover rounded-md mb-6 grayscale hover:grayscale-0 transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Muay Thai</h3>
+                    <p class="text-gray-300 mb-6">
+                        Experimente a "arte das oito armas", uma luta que utiliza punhos, cotovelos, joelhos e canelas. Melhora a resistência, força, agilidade e autoconfiança. Treinos intensos e dinâmicos para todos.
+                    </p>
+                    <a href="#contato" class="btn-main btn-light">Saiba Mais</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Horários (simples, ou pode ser link para uma página mais detalhada) -->
+    <section id="horarios" class="py-16 md:py-24 bg-white pattern-bg">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-divider">Nossos Horários</h2>
+            <p class="max-w-xl mx-auto text-lg text-gray-700 mb-8">
+                Confira a grade de horários completa e encontre a turma ideal para você. Temos opções para adultos, kids e turmas específicas.
+            </p>
+            <!-- Tabela de Horários Simplificada -->
+            <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Dia</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Jiu-Jitsu Adulto</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Jiu-Jitsu Feminino</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Jiu-Jitsu Kids</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Muay Thai</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-gray-800">
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Segunda</td>
+                            <td class="px-6 py-4">12:15 - 13:30 / 19:30 - 21:00</td>
+                            <td class="px-6 py-4"></td>
+                            <td class="px-6 py-4">18:30 - 19:30</td>
+                            <td class="px-6 py-4"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Terça</td>
+                            <td class="px-6 py-4">06:15 - 07:30 / 19:30 - 21:00</td>
+                            <td class="px-6 py-4">12:15 - 13:30</td>
+                            <td class="px-6 py-4"></td>
+                            <td class="px-6 py-4">21:00 - 22:30</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Quarta</td>
+                            <td class="px-6 py-4">12:15 - 13:30 / 19:30 - 21:00</td>
+                            <td class="px-6 py-4"></td>
+                            <td class="px-6 py-4">18:30 - 19:30</td>
+                            <td class="px-6 py-4"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Quinta</td>
+                            <td class="px-6 py-4">06:15 - 07:30 / 19:30 - 21:00</td>
+                            <td class="px-6 py-4">12:15 - 13:30</td>
+                            <td class="px-6 py-4"></td>
+                            <td class="px-6 py-4">21:00 - 22:30</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Sexta</td>
+                            <td class="px-6 py-4">06:15 - 07:30 / 12:15 - 13:30 / 19:30 - 21:00</td>
+                            <td class="px-6 py-4"></td>
+                            <td class="px-6 py-4">18:30 - 19:30</td>
+                            <td class="px-6 py-4">21:00 - 22:30</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Sábado</td>
+                            <td class="px-6 py-4 text-center" colspan="4">Open Mat: 10:30 - 12:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-8 text-gray-600">
+                *Horários sujeitos a alterações. Consulte a secretaria para mais informações.
+            </p>
+        </div>
+    </section>
+
+    <!-- Seção Professores -->
+    <section id="professores" class="section-dark">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-divider text-white">Nossos Professores</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <!-- Professor 1 -->
+                <div class="bg-gray-900 p-6 rounded-lg shadow-xl">
+                    <img src="https://placehold.co/200x200/404040/FFFFFF?text=PROFESSOR+1" alt="Professor 1" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover grayscale hover:grayscale-0 transition-all duration-300">
+                    <h3 class="text-xl font-bold text-white mb-2">Professor Rafael Bezerra</h3>
+                    <p class="text-gray-400 text-sm mb-4">Faixa Preta de Jiu-Jitsu | Experiência de 20+ Anos</p>
+                    <p class="text-gray-300 text-sm">
+                        Fundador da academia, professor Rafael é um ícone no mundo das artes marciais, dedicando sua vida ao ensino e à formação de campeões.
+                    </p>
+                </div>
+                <!-- Professor 2 -->
+                <div class="bg-gray-900 p-6 rounded-lg shadow-xl">
+                    <img src="https://placehold.co/200x200/404040/FFFFFF?text=PROFESSOR+2" alt="Professor 2" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover grayscale hover:grayscale-0 transition-all duration-300">
+                    <h3 class="text-xl font-bold text-white mb-2">Instrutor João Silva</h3>
+                    <p class="text-gray-400 text-sm mb-4">Faixa Marrom de Jiu-Jitsu | Coach de Muay Thai</p>
+                    <p class="text-gray-300 text-sm">
+                        Com sua energia contagiante, João inspira alunos a superarem seus limites, combinando técnica apurada com um treino dinâmico.
+                    </p>
+                </div>
+                <!-- Professor 3 -->
+                <div class="bg-gray-900 p-6 rounded-lg shadow-xl">
+                    <img src="https://placehold.co/200x200/404040/FFFFFF?text=PROFESSORA+3" alt="Professor 3" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover grayscale hover:grayscale-0 transition-all duration-300">
+                    <h3 class="text-xl font-bold text-white mb-2">Instrutora Ana Costa</h3>
+                    <p class="text-gray-400 text-sm mb-4">Faixa Roxa de Jiu-Jitsu | Especialista em Defesa Pessoal Feminina</p>
+                    <p class="text-gray-300 text-sm">
+                        Ana traz uma perspectiva única para o treino, focada na técnica e na aplicação prática do Jiu-Jitsu para o empoderamento feminino.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Galeria -->
+    <section id="galeria" class="py-16 md:py-24 bg-white pattern-bg">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-divider">Galeria</h2>
+            <p class="max-w-xl mx-auto text-lg text-gray-700 mb-8">
+                Momentos de treino, superação e união da nossa academia.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <img src="https://placehold.co/400x300/303030/FFFFFF?text=FOTO+1" alt="Galeria 1" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
+                <img src="https://placehold.co/400x300/404040/FFFFFF?text=FOTO+2" alt="Galeria 2" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
+                <img src="https://placehold.co/400x300/505050/FFFFFF?text=FOTO+3" alt="Galeria 3" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
+                <img src="https://placehold.co/400x300/606060/FFFFFF?text=FOTO+4" alt="Galeria 4" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
+                <img src="https://placehold.co/400x300/707070/FFFFFF?text=FOTO+5" alt="Galeria 5" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
+                <img src="https://placehold.co/400x300/808080/FFFFFF?text=FOTO+6" alt="Galeria 6" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
+                <img src="https://placehold.co/400x300/909090/FFFFFF?text=FOTO+7" alt="Galeria 7" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
+                <img src="https://placehold.co/400x300/A0A0A0/FFFFFF?text=FOTO+8" alt="Galeria 8" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Área do Aluno -->
+    <section id="aluno" class="section-dark">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-divider text-white">Área do Aluno</h2>
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 mb-8">
+                Bem-vindo(a) à sua área exclusiva! Aqui você encontrará comunicados importantes, materiais de estudo, atualizações de horários e informações sobre eventos especiais.
+            </p>
+            <p class="max-w-2xl mx-auto text-base md:text-lg text-gray-400 mb-10">
+                Mantenha-se conectado e aproveite ao máximo sua jornada no Jiu-Jitsu e Muay Thai.
+            </p>
+            <a href="#" class="btn-main btn-light mx-auto">Acessar Minha Área</a>
+            <p class="text-sm text-gray-500 mt-4">
+                (Funcionalidade de login/acesso será implementada em uma fase futura)
+            </p>
+        </div>
+    </section>
+
+    <!-- Seção Contato -->
+    <section id="contato" class="py-16 md:py-24 bg-white pattern-bg">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-divider">Contato</h2>
+            <p class="max-w-xl mx-auto text-lg text-gray-700 mb-8">
+                Entre em contato conosco para agendar sua aula experimental ou tirar suas dúvidas!
+            </p>
+            
+            <div class="flex flex-col md:flex-row md:justify-center md:items-start md:space-x-8 gap-8 md:gap-0 w-full">
+                <!-- Formulário de Contato -->
+                <div class="max-w-md mx-auto md:mx-0 bg-light-gray p-8 rounded-lg shadow-lg border border-light-gray w-full md:w-1/2">
+                    <form class="space-y-4 text-left">
+                        <div>
+                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nome Completo</label>
+                            <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-gray-500" placeholder="Seu Nome">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-gray-500" placeholder="seu@email.com">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Telefone (Opcional)</label>
+                            <input type="tel" id="phone" name="phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-gray-500" placeholder="(XX) XXXXX-XXXX">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Mensagem</label>
+                            <textarea id="message" name="message" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-gray-500" placeholder="Sua mensagem ou dúvida..."></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn-main btn-dark w-full md:w-auto">
+                                Enviar Mensagem
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 7m0 0-4 4L2 16l4-4 4-4 7-7 7 7 7 7-4-4-4 4-7-7-7-7-4-4Z"/></svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Google Maps Embed -->
+                <div class="w-full max-w-2xl mx-auto md:mx-0 md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Localização</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2985.7431020241106!2d-8.437498123528814!3d41.553159285695806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24ffe0c41c2271%3A0x700d4c463cafc594!2sSimetria%20Fight%20Braga!5e0!3m2!1sen!2spt!4v1749746094691!5m2!1sen!2spt" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                </div>
+            </div>
+
+            <div class="mt-10 text-gray-700 text-lg">
+                <p class="mb-2"><strong>Endereço:</strong> R. da Boavista N° 294 loja 305g, 4700-416 Braga</p>
+                <p class="mb-2"><strong>Telefone:</strong> 915 894 638</p>
+                <p><strong>Email:</strong> contato@rafaelbezerra.com</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg-secondary-dark text-white py-8 text-center">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2024 Academia Rafael Bezerra. Todos os direitos reservados.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <!-- <a href="#" class="hover:text-gray-400 transition-colors">Facebook</a>
+                <a href="#" class="hover:text-gray-400 transition-colors">Instagram</a>
+                <a href="#" class="hover:text-gray-400 transition-colors">YouTube</a> -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contêiner para todos os botões flutuantes de redes sociais -->
+    <div class="social-float-container">
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/351915894638" class="social-float-btn whatsapp-float" target="_blank" aria-label="Fale conosco pelo WhatsApp">
+        <!-- WhatsApp Oficial -->
+        <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.001 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.6 4.46 1.74 6.39L3.2 28.8l6.68-1.75c1.87 1.03 3.98 1.58 6.12 1.58 7.06 0 12.8-5.74 12.8-12.8s-5.74-12.8-12.8-12.8zm0 23.04c-1.86 0-3.68-.5-5.27-1.44l-.38-.22-3.97 1.04 1.06-3.87-.25-.4c-1.06-1.7-1.62-3.66-1.62-5.68 0-6.02 4.9-10.92 10.92-10.92s10.92 4.9 10.92 10.92-4.9 10.92-10.92 10.92zm5.98-8.18c-.33-.17-1.95-.96-2.25-1.07-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.25-.71.08-.33-.17-1.39-.51-2.65-1.62-.98-.87-1.64-1.94-1.83-2.27-.19-.33-.02-.5.15-.66.16-.16.33-.41.5-.62.17-.21.22-.36.33-.6.11-.24.06-.45-.03-.62-.09-.17-.74-1.78-1.01-2.44-.27-.66-.54-.57-.74-.58-.19-.01-.41-.01-.63-.01-.22 0-.57.08-.87.41-.3.33-1.14 1.12-1.14 2.73 0 1.61 1.17 3.17 1.34 3.39.17.22 2.3 3.51 5.57 4.79.78.3 1.39.48 1.86.61.78.2 1.5.17 2.07.1.63-.08 1.95-.8 2.23-1.57.28-.77.28-1.43.2-1.57-.08-.14-.3-.22-.63-.39z"/>
+        </svg>
+    </a>
+
+    <!-- Botão Flutuante do Instagram -->
+    <a href="https://instagram.com/seuperfil" class="social-float-btn instagram-float" target="_blank" aria-label="Nosso perfil no Instagram">
+        <!-- Instagram Oficial -->
+        <svg viewBox="0 0 448 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M224.1 141c-63.6 0-115 51.4-115 115s51.4 115 115 115 115-51.4 115-115-51.4-115-115-115zm0 190c-41.4 0-75-33.6-75-75s33.6-75 75-75 75 33.6 75 75-33.6 75-75 75zm146.4-194.3c0 14.9-12 26.9-26.9 26.9s-26.9-12-26.9-26.9 12-26.9 26.9-26.9 26.9 12 26.9 26.9zm76.1 27.2c-1.7-35.3-9.9-66.7-36.2-92.1S388.6 7.7 353.3 6c-35.3-1.7-141.3-1.7-176.6 0-35.3 1.7-66.7 9.9-92.1 36.2S7.7 123.4 6 158.7c-1.7 35.3-1.7 141.3 0 176.6 1.7 35.3 9.9 66.7 36.2 92.1s56.8 34.5 92.1 36.2c35.3 1.7 141.3 1.7 176.6 0 35.3-1.7 66.7-9.9 92.1-36.2s34.5-56.8 36.2-92.1c1.7-35.3 1.7-141.3 0-176.6zm-48.5 218c-7.8 19.6-22.9 34.7-42.5 42.5-29.4 11.7-99.2 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.5-42.5-11.7-29.4-9-99.2-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.5-42.5 29.4-11.7 99.2-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.5 42.5 11.7 29.4 9 99.2 9 132.1s2.6 102.7-9 132.1z"/>
+        </svg>
+    </a>
+
+    <!-- Botão Flutuante do Facebook -->
+    <a href="https://facebook.com/seuperfil" class="social-float-btn facebook-float" target="_blank" aria-label="Nosso perfil no Facebook">
+        <!-- Facebook Oficial -->
+        <svg viewBox="0 0 320 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M279.14 288l14.22-92.66h-88.91V127.89c0-25.35 12.42-50.06 52.24-50.06H293V6.26S259.5 0 225.36 0c-73.22 0-121.36 44.38-121.36 124.72v70.62H22.89V288h81.11v224h100.2V288z"/>
+        </svg>
+    </a>
+
+    <!-- Botão Flutuante do YouTube -->
+    <a href="https://youtube.com/seucanal" class="social-float-btn youtube-float" target="_blank" aria-label="Nosso canal no YouTube">
+        <svg viewBox="0 0 576 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M549.655 124.083c-6.281-23.725-24.958-42.401-48.684-48.684C458.406 64 288 64 288 64s-170.406 0-212.971 11.399c-23.726 6.283-42.403 24.959-48.684 48.684C16 166.648 16 256 16 256s0 89.352 10.345 131.917c6.281 23.725 24.958 42.401 48.684 48.684C117.594 448 288 448 288 448s170.406 0 212.971-11.399c23.726-6.283 42.403-24.959 48.684-48.684C560 345.352 560 256 560 256s0-89.352-10.345-131.917zM232 336V176l142.857 80L232 336z"/>
+        </svg>
+    </a>
+
+    <!-- Botão Flutuante do TikTok -->
+    <a href="https://tiktok.com/@seuperfil" class="social-float-btn tiktok-float" target="_blank" aria-label="Nosso perfil no TikTok">
+        <svg viewBox="0 0 448 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M448,209.9c-35.3,0-64-28.7-64-64V48h-66.7v288c0,35.3-28.7,64-64,64s-64-28.7-64-64s28.7-64,64-64c7.1,0,13.9,1.2,20.3,3.3V233.6c-6.7-0.9-13.5-1.6-20.3-1.6c-70.7,0-128,57.3-128,128s57.3,128,128,128s128-57.3,128-128V304.6c19.1,13.7,42.5,21.8,67.7,21.8V209.9z"/>
+        </svg>
+    </a>
+    </div>
+
+    <script>
+        // JavaScript para o menu hambúrguer
+        document.getElementById('hamburger-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('open');
+        });
+
+        // JavaScript para rolagem suave ao clicar nos links de navegação
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                const headerOffset = document.querySelector('header').offsetHeight; // Altura do cabeçalho fixo
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                // Fecha o menu mobile se estiver aberto
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                }
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            });
+        });
+
+        // Animação de fade-in e slide-up para a seção Hero
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroHeading = document.querySelector('.animate-fade-in');
+            const heroParagraph = document.querySelector('.animate-slide-up.animation-delay-500');
+            const heroButton = document.querySelector('.animate-slide-up.animation-delay-1000');
+
+            // Remove a classe de opacidade para que a animação possa começar
+            heroHeading.classList.remove('opacity-0');
+            heroParagraph.classList.remove('opacity-0');
+            heroButton.classList.remove('opacity-0');
+        });
+    </script>
+</body>
+</html>
