@@ -459,47 +459,53 @@
                         Fundador da academia, professor Rafael é um ícone no mundo das artes marciais, dedicando sua vida ao ensino e à formação de campeões.
                     </p>
                 </div>
-                <!-- Professor 2 -->
-                <div class="bg-gray-900 p-6 rounded-lg shadow-xl">
-                    <img src="https://placehold.co/200x200/404040/FFFFFF?text=PROFESSOR+2" alt="Professor 2" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover grayscale hover:grayscale-0 transition-all duration-300">
-                    <h3 class="text-xl font-bold text-white mb-2">Instrutor João Silva</h3>
-                    <p class="text-gray-400 text-sm mb-4">Faixa Marrom de Jiu-Jitsu | Coach de Muay Thai</p>
-                    <p class="text-gray-300 text-sm">
-                        Com sua energia contagiante, João inspira alunos a superarem seus limites, combinando técnica apurada com um treino dinâmico.
-                    </p>
-                </div>
-                <!-- Professor 3 -->
-                <div class="bg-gray-900 p-6 rounded-lg shadow-xl">
-                    <img src="https://placehold.co/200x200/404040/FFFFFF?text=PROFESSORA+3" alt="Professor 3" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover grayscale hover:grayscale-0 transition-all duration-300">
-                    <h3 class="text-xl font-bold text-white mb-2">Instrutora Ana Costa</h3>
-                    <p class="text-gray-400 text-sm mb-4">Faixa Roxa de Jiu-Jitsu | Especialista em Defesa Pessoal Feminina</p>
-                    <p class="text-gray-300 text-sm">
-                        Ana traz uma perspectiva única para o treino, focada na técnica e na aplicação prática do Jiu-Jitsu para o empoderamento feminino.
-                    </p>
-                </div>
             </div>
         </div>
     </section>
 
     <!-- Seção Galeria -->
-    <section id="galeria" class="py-16 md:py-24 bg-white pattern-bg">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-divider">Galeria</h2>
-            <p class="max-w-xl mx-auto text-lg text-gray-700 mb-8">
-                Momentos de treino, superação e união da nossa academia.
-            </p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                <img src="https://placehold.co/400x300/303030/FFFFFF?text=FOTO+1" alt="Galeria 1" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
-                <img src="https://placehold.co/400x300/404040/FFFFFF?text=FOTO+2" alt="Galeria 2" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
-                <img src="https://placehold.co/400x300/505050/FFFFFF?text=FOTO+3" alt="Galeria 3" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
-                <img src="https://placehold.co/400x300/606060/FFFFFF?text=FOTO+4" alt="Galeria 4" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
-                <img src="https://placehold.co/400x300/707070/FFFFFF?text=FOTO+5" alt="Galeria 5" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
-                <img src="https://placehold.co/400x300/808080/FFFFFF?text=FOTO+6" alt="Galeria 6" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
-                <img src="https://placehold.co/400x300/909090/FFFFFF?text=FOTO+7" alt="Galeria 7" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
-                <img src="https://placehold.co/400x300/A0A0A0/FFFFFF?text=FOTO+8" alt="Galeria 8" class="w-full h-auto object-cover rounded-md shadow-md grayscale hover:grayscale-0 transition-all duration-300">
-            </div>
-        </div>
-    </section>
+<!-- Carrossel mostrando 3 imagens por vez, com efeito de zoom ao passar o mouse -->
+<div class="relative w-full max-w-3xl mx-auto py-8" id="carousel">
+  <div class="flex gap-4 overflow-hidden" id="carousel-track">
+    <img src="https://placehold.co/400x250/222/fff?text=Foto+1" class="rounded-lg flex-shrink-0 w-1/3 transition-transform duration-300 hover:scale-110" alt="Foto 1">
+    <img src="https://placehold.co/400x250/444/fff?text=Foto+2" class="rounded-lg flex-shrink-0 w-1/3 transition-transform duration-300 hover:scale-110" alt="Foto 2">
+    <img src="https://placehold.co/400x250/666/fff?text=Foto+3" class="rounded-lg flex-shrink-0 w-1/3 transition-transform duration-300 hover:scale-110" alt="Foto 3">
+    <img src="https://placehold.co/400x250/888/fff?text=Foto+4" class="rounded-lg flex-shrink-0 w-1/3 transition-transform duration-300 hover:scale-110" alt="Foto 4">
+    <img src="https://placehold.co/400x250/aaa/fff?text=Foto+5" class="rounded-lg flex-shrink-0 w-1/3 transition-transform duration-300 hover:scale-110" alt="Foto 5">
+  </div>
+  <!-- Botões de navegação -->
+  <button id="prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full z-10">&lt;</button>
+  <button id="next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full z-10">&gt;</button>
+</div>
+
+<script>
+  const track = document.getElementById('carousel-track');
+  const images = track.querySelectorAll('img');
+  const visible = 3;
+  let start = 0;
+
+  function updateCarousel() {
+    images.forEach((img, i) => {
+      img.style.display = (i >= start && i < start + visible) ? 'block' : 'none';
+    });
+  }
+
+  document.getElementById('prev').onclick = () => {
+    if (start > 0) {
+      start--;
+      updateCarousel();
+    }
+  };
+
+  document.getElementById('next').onclick = () => {
+    if (start < images.length - visible) {
+      start++;
+      updateCarousel();
+    }
+  };
+
+  updateCarousel();
+</script>
 
     <!-- Seção Área do Aluno -->
     <section id="aluno" class="section-dark">
@@ -523,7 +529,7 @@
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-4 section-divider">Contato</h2>
             <p class="max-w-xl mx-auto text-lg text-gray-700 mb-8">
-                Entre em contato conosco para agendar sua aula experimental ou tirar suas dúvidas!
+                Entre em contato conosco ou nos visite para agendar sua aula experimental ou tirar suas dúvidas!
             </p>
             
             <div class="flex flex-col md:flex-row md:justify-center md:items-start md:space-x-8 gap-8 md:gap-0 w-full">
@@ -557,15 +563,15 @@
                 
                 <!-- Google Maps Embed -->
                 <div class="w-full max-w-2xl mx-auto md:mx-0 md:w-1/2">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Localização</h3>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2985.7431020241106!2d-8.437498123528814!3d41.553159285695806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24ffe0c41c2271%3A0x700d4c463cafc594!2sSimetria%20Fight%20Braga!5e0!3m2!1sen!2spt!4v1749746094691!5m2!1sen!2spt" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2985.7431020241106!2d-8.437498123528814!3d41.553159285695806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24ffe0c41c2271%3A0x700d4c463cafc594!2sSimetria%20Fight%20Braga!5e0!3m2!1sen!2spt!4v1749746094691!5m2!1sen!2spt" width="800" height="510" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
                 </div>
             </div>
 
+            <!-- Informações de Contato -->
             <div class="mt-10 text-gray-700 text-lg">
                 <p class="mb-2"><strong>Endereço:</strong> R. da Boavista N° 294 loja 305g, 4700-416 Braga</p>
-                <p class="mb-2"><strong>Telefone:</strong> 915 894 638</p>
+                <p class="mb-2"><strong>Telefone:</strong> +351 915 894 638</p>
                 <p><strong>Email:</strong> contato@rafaelbezerra.com</p>
             </div>
         </div>
@@ -576,9 +582,6 @@
         <div class="container mx-auto px-4">
             <p>&copy; 2024 Academia Rafael Bezerra. Todos os direitos reservados.</p>
             <div class="flex justify-center space-x-6 mt-4">
-                <!-- <a href="#" class="hover:text-gray-400 transition-colors">Facebook</a>
-                <a href="#" class="hover:text-gray-400 transition-colors">Instagram</a>
-                <a href="#" class="hover:text-gray-400 transition-colors">YouTube</a> -->
             </div>
         </div>
     </footer>
@@ -586,7 +589,7 @@
     <!-- Contêiner para todos os botões flutuantes de redes sociais -->
     <div class="social-float-container">
     <!-- Botão Flutuante do WhatsApp -->
-    <a href="https://wa.me/351915894638" class="social-float-btn whatsapp-float" target="_blank" aria-label="Fale conosco pelo WhatsApp">
+    <a href="https://wa.me/+35192913305" class="social-float-btn whatsapp-float" target="_blank" aria-label="Fale conosco pelo WhatsApp">
         <!-- WhatsApp Oficial -->
         <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M16.001 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.6 4.46 1.74 6.39L3.2 28.8l6.68-1.75c1.87 1.03 3.98 1.58 6.12 1.58 7.06 0 12.8-5.74 12.8-12.8s-5.74-12.8-12.8-12.8zm0 23.04c-1.86 0-3.68-.5-5.27-1.44l-.38-.22-3.97 1.04 1.06-3.87-.25-.4c-1.06-1.7-1.62-3.66-1.62-5.68 0-6.02 4.9-10.92 10.92-10.92s10.92 4.9 10.92 10.92-4.9 10.92-10.92 10.92zm5.98-8.18c-.33-.17-1.95-.96-2.25-1.07-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.25-.71.08-.33-.17-1.39-.51-2.65-1.62-.98-.87-1.64-1.94-1.83-2.27-.19-.33-.02-.5.15-.66.16-.16.33-.41.5-.62.17-.21.22-.36.33-.6.11-.24.06-.45-.03-.62-.09-.17-.74-1.78-1.01-2.44-.27-.66-.54-.57-.74-.58-.19-.01-.41-.01-.63-.01-.22 0-.57.08-.87.41-.3.33-1.14 1.12-1.14 2.73 0 1.61 1.17 3.17 1.34 3.39.17.22 2.3 3.51 5.57 4.79.78.3 1.39.48 1.86.61.78.2 1.5.17 2.07.1.63-.08 1.95-.8 2.23-1.57.28-.77.28-1.43.2-1.57-.08-.14-.3-.22-.63-.39z"/>
@@ -594,7 +597,7 @@
     </a>
 
     <!-- Botão Flutuante do Instagram -->
-    <a href="https://instagram.com/seuperfil" class="social-float-btn instagram-float" target="_blank" aria-label="Nosso perfil no Instagram">
+    <a href="https://instagram.com/simetriafightbraga" class="social-float-btn instagram-float" target="_blank" aria-label="Nosso perfil no Instagram">
         <!-- Instagram Oficial -->
         <svg viewBox="0 0 448 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M224.1 141c-63.6 0-115 51.4-115 115s51.4 115 115 115 115-51.4 115-115-51.4-115-115-115zm0 190c-41.4 0-75-33.6-75-75s33.6-75 75-75 75 33.6 75 75-33.6 75-75 75zm146.4-194.3c0 14.9-12 26.9-26.9 26.9s-26.9-12-26.9-26.9 12-26.9 26.9-26.9 26.9 12 26.9 26.9zm76.1 27.2c-1.7-35.3-9.9-66.7-36.2-92.1S388.6 7.7 353.3 6c-35.3-1.7-141.3-1.7-176.6 0-35.3 1.7-66.7 9.9-92.1 36.2S7.7 123.4 6 158.7c-1.7 35.3-1.7 141.3 0 176.6 1.7 35.3 9.9 66.7 36.2 92.1s56.8 34.5 92.1 36.2c35.3 1.7 141.3 1.7 176.6 0 35.3-1.7 66.7-9.9 92.1-36.2s34.5-56.8 36.2-92.1c1.7-35.3 1.7-141.3 0-176.6zm-48.5 218c-7.8 19.6-22.9 34.7-42.5 42.5-29.4 11.7-99.2 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.5-42.5-11.7-29.4-9-99.2-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.5-42.5 29.4-11.7 99.2-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.5 42.5 11.7 29.4 9 99.2 9 132.1s2.6 102.7-9 132.1z"/>
@@ -610,14 +613,14 @@
     </a>
 
     <!-- Botão Flutuante do YouTube -->
-    <a href="https://youtube.com/seucanal" class="social-float-btn youtube-float" target="_blank" aria-label="Nosso canal no YouTube">
+    <a href="https://youtube.com/@SimetriaFightBraga" class="social-float-btn youtube-float" target="_blank" aria-label="Nosso canal no YouTube">
         <svg viewBox="0 0 576 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M549.655 124.083c-6.281-23.725-24.958-42.401-48.684-48.684C458.406 64 288 64 288 64s-170.406 0-212.971 11.399c-23.726 6.283-42.403 24.959-48.684 48.684C16 166.648 16 256 16 256s0 89.352 10.345 131.917c6.281 23.725 24.958 42.401 48.684 48.684C117.594 448 288 448 288 448s170.406 0 212.971-11.399c23.726-6.283 42.403-24.959 48.684-48.684C560 345.352 560 256 560 256s0-89.352-10.345-131.917zM232 336V176l142.857 80L232 336z"/>
         </svg>
     </a>
 
     <!-- Botão Flutuante do TikTok -->
-    <a href="https://tiktok.com/@seuperfil" class="social-float-btn tiktok-float" target="_blank" aria-label="Nosso perfil no TikTok">
+    <a href="https://tiktok.com/@simetriafightbraga" class="social-float-btn tiktok-float" target="_blank" aria-label="Nosso perfil no TikTok">
         <svg viewBox="0 0 448 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M448,209.9c-35.3,0-64-28.7-64-64V48h-66.7v288c0,35.3-28.7,64-64,64s-64-28.7-64-64s28.7-64,64-64c7.1,0,13.9,1.2,20.3,3.3V233.6c-6.7-0.9-13.5-1.6-20.3-1.6c-70.7,0-128,57.3-128,128s57.3,128,128,128s128-57.3,128-128V304.6c19.1,13.7,42.5,21.8,67.7,21.8V209.9z"/>
         </svg>
